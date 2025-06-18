@@ -1,4 +1,4 @@
-# 🧠 Advanced AI Chatbot with Weaviate, HuggingFace, and GPT-4
+# 🧠 Advanced AI Chatbot with Weaviate, HuggingFace & GPT-4
 
 This project was my deep-dive into crafting a smart, context-aware chatbot using powerful modern tools like **Weaviate**, **HuggingFace Embeddings**, and **GPT-4**. Unlike the lightweight Google-fallback variant, this version leverages a full local vector store and context-aware conversation.
 
