@@ -1,80 +1,53 @@
-# 🧠 Advanced AI Chatbot with Weaviate, HuggingFace & GPT-4
+# Weaviate-Based-LeadershipGuide-Chatbot
 
-This project was my deep-dive into crafting a smart, context-aware chatbot using powerful modern tools like **Weaviate**, **HuggingFace Embeddings**, and **GPT-4**. Unlike the lightweight Google-fallback variant, this version leverages a full local vector store and context-aware conversation.
+A Turkish leadership coaching chatbot built as a RAG (retrieval-augmented generation) pipeline. It answers questions from a Weaviate vector store of transcribed leadership videos, with a Google Search fallback when the local content is not relevant, and serves the chat through a Streamlit UI.
 
----
+## How to Run
 
-## 🔍 About
+The repo ships with the processed data (`turkish_chunks.json`), so the transcription pipeline is optional.
 
-This chatbot is built with:
-
-- **Weaviate** as a vector database
-- **HuggingFace** for sentence embeddings
-- **LangChain** to manage prompts and context
-- **OpenAI GPT-4** as the primary model
-- **Google Search Fallback** when Weaviate yields no relevant results
-- **Streamlit** for interactive UI
-
----
-
-## 🚧 Deployment
-
-> ⚠️ Due to high operational costs and dependency complexity (e.g., maintaining Weaviate and local inference), this version has not been deployed to the public.
-
-However, the architecture and modular logic remain reusable and insightful for:
-
-- Large-scale document Q&A bots
-- Internal search assistants
-- RAG (Retrieval-Augmented Generation) systems
-
----
-
-## 📁 Structure
+1. Start a local Weaviate instance:
 
 ```
-ai-chatbot-weaviate/
-├── app.py                    # Streamlit UI
-├── weaviate_client.py        # Handles vector DB ops
-├── embedding.py              # HuggingFace embedding wrapper
-├── fallback_google.py        # Google search fallback logic
-├── prompts/                  # Custom LangChain prompts
-└── data/                     # JSON chunks & embeddings
+docker compose up -d
 ```
 
----
+2. Install the Python dependencies:
 
-## 🧠 What It Does
+```
+pip install -r requirements.txt
+```
 
-- Accepts a query
-- Searches Weaviate for context
-- If context is relevant → answer with GPT-4 using that
-- If not → fallback to Google, summarize the result
-- All served from a clean, styled Streamlit UI
+3. Set the environment variables used by the app: `OPENAI_API_KEY` for the GPT-4o calls, and `GOOGLE_API_KEY` plus `GOOGLE_CSE_ID` for the Google Search fallback.
 
----
+4. Create the `LeadershipContent` collection and load the chunks:
 
-## 🛠 Technologies Used
+```
+python upload_to_weaviate.py
+```
 
-- [Weaviate](https://weaviate.io/)
-- [LangChain](https://www.langchain.com/)
-- [HuggingFace Transformers](https://huggingface.co/)
-- [OpenAI GPT-4](https://openai.com/gpt)
-- [Streamlit](https://streamlit.io/)
+5. Start the chatbot:
 
----
+```
+streamlit run steamlit_leadership_chatbot.py
+```
 
-## 📌 Future Goals
+Optional data pipeline (already done, outputs are in the repo): `audio_downloader.py` downloads a YouTube playlist with yt-dlp, `transcript_maker_whisper.py` transcribes the audio with Whisper, `prepare_transcripts.py` cleans the subtitles into `turkish_chunks.json`, and `jsontocsv.py` converts it to CSV. `chatbot.py` is a command line variant that connects to Weaviate Cloud instead of the local instance (it needs `WEAVIATE_URL` and `WEAVIATE_API_KEY`).
 
-- Integrate login/auth
-- Deploy on cloud with cost optimization
-- Dynamic memory for long conversations
-- Fully offline support using local LLMs (e.g., LLaMA or Mistral)
+## Tech Used
 
----
+- Python, Streamlit (UI)
+- Weaviate (vector database, local via Docker or Weaviate Cloud)
+- LangChain (`langchain-weaviate`, `langchain-openai`, `langchain-huggingface`, `langchain-google-community`)
+- OpenAI GPT-4o for relevance checks and answer generation
+- HuggingFace sentence-transformers (`paraphrase-multilingual-MiniLM-L12-v2`) for embeddings
+- Google Search API as a fallback source
+- yt-dlp and OpenAI Whisper for the audio download and transcription pipeline
 
-## 🙏 Acknowledgements
+## Status
 
-Huge thanks to the open-source communities behind these tools, and to anyone passionate about making AI practical and usable.
+Side project, 2025. Not deployed publicly.
 
-—
-Mert Kaya
+## License
+
+Apache License 2.0. See `LICENSE`.
