@@ -27,6 +27,13 @@
   <a href="https://github.com/mertkayacs/Leadership-Coach-Chatbot"><img alt="Leadership Coach" src="https://img.shields.io/badge/Leadership%20Coach-1E2A38?style=for-the-badge&logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48ZyBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIj48cGF0aCBkPSJNMTUgNmE5IDkgMCAwIDAtOSA5VjMiLz48Y2lyY2xlIGN4PSIxOCIgY3k9IjYiIHI9IjMiLz48Y2lyY2xlIGN4PSI2IiBjeT0iMTgiIHI9IjMiLz48L2c%2BPC9zdmc%2B&logoColor=white"></a>
 </p>
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/hero-dark.webp">
+    <img src="docs/assets/readme/hero-light.webp" alt="Code of upload_to_weaviate.py creating the LeadershipContent collection with three text properties" width="960">
+  </picture>
+</p>
+
 LeadershipGuide is a Turkish leadership coaching chatbot built as a retrieval-augmented generation pipeline. It answers from a Weaviate vector store of transcribed leadership interviews, with a Google Search fallback when the stored content does not fit the question. GPT-4o checks relevance and writes the answers, and a Streamlit interface serves the chat. It is the Weaviate variant of the Leadership Coach chatbot.
 
 ---
@@ -40,6 +47,49 @@ The pipeline keeps the interview chunks in a vector database.
 | <img src="docs/assets/readme/icons/database.svg" width="18" height="18" alt=""> **Weaviate store** | The upload script creates a `LeadershipContent` collection and loads 281 chunks from `turkish_chunks.json`. |
 | <img src="docs/assets/readme/icons/container.svg" width="18" height="18" alt=""> **Local or cloud** | The Streamlit app uses the local instance from docker-compose.yml. The command line chatbot connects to Weaviate Cloud through `WEAVIATE_URL` and `WEAVIATE_API_KEY`. |
 | <img src="docs/assets/readme/icons/languages.svg" width="18" height="18" alt=""> **Multilingual embeddings** | HuggingFace sentence-transformers (paraphrase-multilingual-MiniLM-L12-v2) embed the Turkish chunks and the questions. |
+
+## A quick tour
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/tour/collection-dark.webp">
+        <img src="docs/assets/readme/tour/collection-light.webp" alt="Code card of upload_to_weaviate.py creating the LeadershipContent collection">
+      </picture>
+      <h3>Create collection</h3>
+      The LeadershipContent collection has video title, chunk and source URL properties.
+    </td>
+    <td width="50%" valign="top">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/tour/compose-dark.webp">
+        <img src="docs/assets/readme/tour/compose-light.webp" alt="Code card of docker-compose.yml with the Weaviate service and loopback ports">
+      </picture>
+      <h3>Compose file</h3>
+      One Weaviate service with anonymous access, published on 127.0.0.1 only.
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/tour/retriever-dark.webp">
+        <img src="docs/assets/readme/tour/retriever-light.webp" alt="Code card of chatbot.py connecting to Weaviate Cloud and building a retriever">
+      </picture>
+      <h3>Retriever</h3>
+      The command line chatbot connects to Weaviate Cloud and retrieves the top three chunks.
+    </td>
+    <td width="50%" valign="top">
+      <picture>
+        <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/tour/check-dark.webp">
+        <img src="docs/assets/readme/tour/check-light.webp" alt="Code card of weaviate_check.py fetching five objects">
+      </picture>
+      <h3>Check script</h3>
+      Fetches five objects from the local collection to confirm the upload.
+    </td>
+  </tr>
+</table>
+
+<p align="center"><sub>Code cards show the files as they are in the repository.</sub></p>
 
 ## Features
 
@@ -97,6 +147,6 @@ If LeadershipGuide is useful to you, a ⭐ helps other people find it.
 
 ## License
 
-[Apache License 2.0](LICENSE). See the LICENSE file for the full text.
+[Apache License 2.0](LICENSE). Photos behind the screenshots are credited in [docs/assets/readme/CREDITS.md](docs/assets/readme/CREDITS.md).
 
 [![views](https://hits.sh/github.com/mertkayacs/Weaviate-Based-LeadershipGuide-Chatbot.svg?view=today-total&style=flat-square&label=views&color=4F7A63&labelColor=1E2A38)](https://github.com/mertkayacs/Weaviate-Based-LeadershipGuide-Chatbot)
