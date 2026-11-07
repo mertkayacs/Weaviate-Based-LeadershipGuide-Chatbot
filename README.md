@@ -5,7 +5,7 @@
   </picture>
 </p>
 
-<h1 align="center">Leadership coaching in Turkish. Answers from a Weaviate vector store.</h1>
+<h1 align="center">Leadership coaching in Turkish.<br>Answers from a Weaviate vector store.</h1>
 
 <p align="center">
   A retrieval-augmented leadership chatbot with a Weaviate vector store and a Streamlit interface.<br>
@@ -30,7 +30,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/hero-dark.webp">
-    <img src="docs/assets/readme/hero-light.webp" alt="Code of upload_to_weaviate.py creating the LeadershipContent collection with three text properties" width="960">
+    <img src="docs/assets/readme/hero-light.webp" alt="Code of prepare_transcripts.py that cleans subtitle text and splits it into chunks of 300 words" width="960">
   </picture>
 </p>
 
@@ -76,7 +76,7 @@ The pipeline keeps the interview chunks in a vector database.
         <img src="docs/assets/readme/tour/retriever-light.webp" alt="Code card of chatbot.py connecting to Weaviate Cloud and building a retriever">
       </picture>
       <h3>Retriever</h3>
-      The command line chatbot connects to Weaviate Cloud and retrieves the top three chunks.
+      The command line chatbot connects to Weaviate Cloud and builds a retriever for the top three chunks.
     </td>
     <td width="50%" valign="top">
       <picture>
